@@ -24,12 +24,36 @@ body {
 
 #screen {
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
     width: 90%;
     height: 150px;
     background-color: #283136;
     border: 8px solid #1C2226;
     border-radius: 15px;
 }
+
+#top-display,
+#bottom-display {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 20px;
+    color: #EEF9FF;
+    font-family: 'Orbitron', sans-serif;
+}
+
+#top-display {
+    height: 20%;
+    font-size: 14px;
+}
+
+#bottom-display {
+    height: 80%;
+    font-size: 24px;
+}
+
 
 #button-container {
     width: 90%;
