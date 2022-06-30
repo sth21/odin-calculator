@@ -1,3 +1,20 @@
+// Global Variables
+let topDisplayValue;
+let bottomDisplayValue;
+let bottomDisplay = document.querySelector('#bottom-display');
+let topDisplay = document.querySelector('#top-display');
+let errorDisplay = document.querySelector('.error');
+let firstClick = 0;
+
+
+// Event Listeners
+const buttons = document.querySelectorAll('button')
+buttons.forEach((button) => {
+    button.addEventListener('click', click);
+});
+
+
+// Function Declarations
 function add(a, b) {
     return a + b;
 }
@@ -32,4 +49,19 @@ function operate(a, b, operation) {
 
 function clear() {
 
+}
+
+function click(event) {
+    if (bottomDisplay.textContent.length == 22) {
+        errorDisplay.textContent = 'ERROR - DISPLAY LIMIT MET';
+        return;
+    }
+    if (firstClick === 0) {
+        bottomDisplay.textContent = event.target.textContent;
+        bottomDisplayValue = bottomDisplay.textContent;
+        ++firstClick;
+    } else {
+        bottomDisplay.textContent = bottomDisplay.textContent + event.target.textContent;
+        bottomDisplayValue = bottomDisplay.textContent;
+    }
 }

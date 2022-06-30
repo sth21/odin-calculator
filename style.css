@@ -5,6 +5,7 @@ body {
     align-items: center;
     min-height: 100vh;
     background-color: #3c5aa6;
+    color: #EEF9FF;
 }
 
 #calculator {
@@ -39,9 +40,9 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    flex-wrap: wrap-reverse;
     margin: 20px;
-    color: #EEF9FF;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Share Tech Mono', monospace;
 }
 
 #top-display {
@@ -69,11 +70,11 @@ button {
     height: 63.75px;
     width: 63.75px;
     background-color: #283136;
-    color: #EEF9FF;
     border: 5px solid #1C2226;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Share Tech Mono', monospace;
     font-size: 22.5px;
     border-radius: 15px;
+    color: #EEF9FF;
 }
 
 .decimal {
@@ -88,10 +89,18 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+.personal-info, .error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
     margin-top: 20px;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Share Tech Mono', monospace;
     font-size: 22.5px;
+    color: #EEF9FF;
 }
 
 img {
@@ -102,10 +111,8 @@ img {
 a:link,
 a:visited,
 a:hover,
-a:active {
-    text-decoration: none;
-}
-
+a:active
 a {
+    text-decoration: none;
     color: #EEF9FF;
 }
