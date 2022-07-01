@@ -41,8 +41,8 @@ function exponentiation(a, b) {
 }
 
 function operate(a, b, operation) {
-    a = parseInt(a);
-    b = parseInt(b);
+    a = parseFloat(a);
+    b = parseFloat(b);
     if (operation === '+') {
         return add(a, b);
     } else if (operation === '-') {
@@ -86,6 +86,10 @@ function clear() {
 function click(event) {
     if (event.target.classList.contains('clear-all')) {
         allClear();
+    } else if (bottomDisplay.textContent.includes('.') && event.target.classList.contains('decimal')) {
+        return;
+    } else if (firstClick === false && event.target.classList.contains('negative')) {
+        return;
     } else if (event.target.classList.contains('operation')) {
         if (firstOperation === true) {
             valueOne = bottomDisplay.textContent;
@@ -113,6 +117,9 @@ function click(event) {
         clear();
     } else if (bottomDisplay.textContent.length === 22) {
         errorDisplay.textContent = 'ERROR - DISPLAY LIMIT MET';
+    } else if (event.target.classList.contains('negative')) {
+        bottomDisplay.textContent = event.target.textContent.slice(2, 3);
+        firstClick = false;
     } else if (firstClick === true) {
         bottomDisplay.textContent = event.target.textContent;
         firstClick = false;
