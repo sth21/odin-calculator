@@ -4,7 +4,7 @@ body {
     justify-content: flex-start;
     align-items: center;
     min-height: 100vh;
-    background-color: #3c5aa6;
+    background-color: #2a75bb;
     color: #EEF9FF;
 }
 
@@ -75,6 +75,10 @@ button {
     font-size: 22.5px;
     border-radius: 15px;
     color: #EEF9FF;
+}
+
+button.operation {
+    background-color: #3c5aa6;
 }
 
 .decimal {

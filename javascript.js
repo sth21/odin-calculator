@@ -86,7 +86,7 @@ function clear() {
 function click(event) {
     if (event.target.classList.contains('clear-all')) {
         allClear();
-    } else if (bottomDisplay.textContent.includes('.') && event.target.classList.contains('decimal')) {
+    } else if (bottomDisplay.textContent.includes('.') && event.target.classList.contains('decimal') && firstClick === false) {
         return;
     } else if (firstClick === false && event.target.classList.contains('negative')) {
         return;
@@ -116,7 +116,11 @@ function click(event) {
     } else if (event.target.classList.contains('clear')) {
         clear();
     } else if (bottomDisplay.textContent.length === 22) {
-        errorDisplay.textContent = 'ERROR - DISPLAY LIMIT MET';
+        if (firstClick === true) {
+            bottomDisplay.textContent = event.target.textContent;
+        } else {
+            errorDisplay.textContent = 'ERROR - DISPLAY LIMIT MET';
+        }
     } else if (event.target.classList.contains('negative')) {
         bottomDisplay.textContent = event.target.textContent.slice(2, 3);
         firstClick = false;
@@ -125,5 +129,8 @@ function click(event) {
         firstClick = false;
     } else {
         bottomDisplay.textContent = bottomDisplay.textContent + event.target.textContent;
+    }
+    if (bottomDisplay.textContent.length !== 22) {
+        errorDisplay.textContent = "";
     }
 }
