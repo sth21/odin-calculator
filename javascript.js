@@ -40,6 +40,31 @@ function exponentiation(a, b) {
     return a ** b;
 }
 
+function displayScreens(event) {
+    if (firstOperation === true) {
+        valueOne = bottomDisplay.textContent;
+        operationOne = event.target.textContent;
+        topDisplay.textContent = `${valueOne} ${operationOne}`;
+        firstClick = true;
+        firstOperation = false;
+    } else {
+        operationTwo = event.target.textContent;
+        valueTwo = bottomDisplay.textContent;
+        firstClick = true;
+        if (operationTwo === '=') {
+            topDisplay.textContent = `${topDisplay.textContent} ${valueTwo} =`;
+            bottomDisplay.textContent = operate(valueOne, valueTwo, operationOne);
+            firstOperation = true;
+        } else {
+            topDisplay.textContent = `${operate(valueOne, valueTwo, operationOne)} ${operationTwo}`;
+            bottomDisplay.textContent = operate(valueOne, valueTwo, operationOne);
+            valueOne = bottomDisplay.textContent;
+            operationOne = event.target.textContent;
+            firstOperation = false;
+        }
+    }
+}
+
 function operate(a, b, operation) {
     a = parseFloat(a);
     b = parseFloat(b);
@@ -85,52 +110,30 @@ function clear() {
 
 function click(event) {
     if (event.target.classList.contains('clear-all')) {
-        allClear();
-    } else if (bottomDisplay.textContent.includes('.') && event.target.classList.contains('decimal') && firstClick === false) {
-        return;
-    } else if (firstClick === false && event.target.classList.contains('negative')) {
-        return;
+        allClear(); // Clear All From Calculator
+    } else if (firstClick === false && ((bottomDisplay.textContent.includes('.') && event.target.classList.contains('decimal')) || event.target.classList.contains('negative'))) {
+        return; // If more than one negative or decimal
     } else if (event.target.classList.contains('operation')) {
-        if (firstOperation === true) {
-            valueOne = bottomDisplay.textContent;
-            operationOne = event.target.textContent;
-            topDisplay.textContent = `${valueOne} ${operationOne}`;
-            firstClick = true;
-            firstOperation = false;
-        } else {
-            operationTwo = event.target.textContent;
-            valueTwo = bottomDisplay.textContent;
-            firstClick = true;
-            if (operationTwo === '=') {
-                topDisplay.textContent = `${topDisplay.textContent} ${valueTwo} =`;
-                bottomDisplay.textContent = operate(valueOne, valueTwo, operationOne);
-                firstOperation = true;
-            } else {
-                topDisplay.textContent = `${operate(valueOne, valueTwo, operationOne)} ${operationTwo}`;
-                bottomDisplay.textContent = operate(valueOne, valueTwo, operationOne);
-                valueOne = bottomDisplay.textContent;
-                operationOne = event.target.textContent;
-                firstOperation = false;
-            }
-        }
+        displayScreens(event); // Go through the screen display workflow
     } else if (event.target.classList.contains('clear')) {
-        clear();
+        clear(); // Delete a single digit
     } else if (bottomDisplay.textContent.length === 22) {
         if (firstClick === true) {
-            bottomDisplay.textContent = event.target.textContent;
+            bottomDisplay.textContent = event.target.textContent; // If screen was previously full from first digit (ok)
         } else {
-            errorDisplay.textContent = 'ERROR - DISPLAY LIMIT MET';
+            errorDisplay.textContent = 'ERROR - DISPLAY LIMIT MET'; // If screen is full for first time (not ok)
         }
-    } else if (event.target.classList.contains('negative')) {
-        bottomDisplay.textContent = event.target.textContent.slice(2, 3);
-        firstClick = false;
     } else if (firstClick === true) {
-        bottomDisplay.textContent = event.target.textContent;
+        if (event.target.classList.contains('negative')) {
+            bottomDisplay.textContent = event.target.textContent.slice(2, 3);
+        } else {
+            bottomDisplay.textContent = event.target.textContent; // If first digit of number
+        }
         firstClick = false;
     } else {
         bottomDisplay.textContent = bottomDisplay.textContent + event.target.textContent;
     }
     if (bottomDisplay.textContent.length !== 22) {
-        errorDisplay.textContent = "";
+        errorDisplay.textContent = ""; // If number on screen is no longer overflow
     }
 }
